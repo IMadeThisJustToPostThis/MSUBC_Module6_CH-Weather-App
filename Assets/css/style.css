@@ -1,0 +1,28 @@
+:root {
+  --primary: rgba(12, 136, 166, 1);
+  --secondary: rgba(25, 31, 33, 1);
+  --tertiary: rgba(50, 154, 78, 1);
+  --font: rgba(23, 23, 23, 1);
+}
+
+#forecast {
+  position: absolute;
+  left: -4%;
+}
+
+#header {
+  color: var(--font);
+}
+
+#fake-btn {
+  color: var(--font)
+}
+
+h1 {
+  margin-bottom: 0%;
+  color: var(--primary);
+}
+
+body {
+  margin: 0;
+}

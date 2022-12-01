@@ -5,17 +5,27 @@
   --font: rgba(23, 23, 23, 1);
 }
 
+* {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
 #forecast {
-  position: absolute;
-  left: -4%;
+  position: relative;
+  right: -4%;
 }
 
 #header {
   color: var(--font);
 }
 
-#fake-btn {
-  color: var(--font)
+#search-list {
+  margin: 15px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#today {
+  border-radius: 5px;
 }
 
 h1 {
@@ -25,4 +35,5 @@ h1 {
 
 body {
   margin: 0;
+  background-color: var(--tertiary);
 }

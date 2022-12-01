@@ -1,8 +1,14 @@
-// add more to .css style (add more distinguished background color...)
-// improve the formatting of the cards and maybe include some more information
-
 // array to hold our data for local storage
 let storage = [];
+
+// helper function which simply adds up to 2 extra zeroes (.00) if the number has less than two decimal places
+// any argument that is passed into this function must be in a string format as it uses .split which is a string methods
+function addZeroes(num) {
+  const dec = num.split('.')[1]; // isolate the whole number from the decimal
+  const len = 2; // set length of decimal places to two
+  // pass len to the .toFixed function called on num, which automatically formats a number using fixed-point notation, then convert back to a number
+  return Number(num).toFixed(len);
+}
 
 // function to retrieve todays data from the weather API
 function getToday(searchInput) {
@@ -27,8 +33,8 @@ function getToday(searchInput) {
       // create a weather icon image that correlates to the current weather
       let img = $('<img>').attr('src', 'https://openweathermap.org/img/w/' + data.weather[0].icon + '.png');
       // create variables that hold todays weather data
-      let temp = $('<p>').addClass('card-text').text('Temperature: ' + data.main.temp + ' °F');
-      let wind = $('<p>').addClass('card-text').text('Wind Speed: ' + data.wind.speed + ' MPH');
+      let temp = $('<p>').addClass('card-text').text('Temperature: ' + addZeroes(String(data.main.temp)) + ' °F');
+      let wind = $('<p>').addClass('card-text').text('Wind Speed: ' + addZeroes(String(data.wind.speed)) + ' MPH');
       let humid = $('<p>').addClass('card-text').text('Humidity: ' + data.main.humidity + '%');
       // create variables that hold the selected locations coordinates
       let lat = data.coord.lat;
@@ -67,6 +73,7 @@ function getUVIndex(lat, lon, cardBody) {
 
       cardBody.append(uvIndexBody); //append the uvIndexBody to the main cardBody
       $('#today .card-body').append(uvIndexBody.append(uvIndexDisplay)); // append the uvIndexDisplay to the uvIndexBody, then append that to the today id
+      $('#today .card-body').addClass('bg-light'); // give the entire today display a light white background
     })
 
 }
@@ -100,10 +107,11 @@ function getForecast(searchInput) {
           // create a weather icon image that correlates to the forecasted days weather
           let imgFore = $('<img>').attr('src', 'https://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png');
           // create variables that hold the forecasted days weather data
+          let tempFore = $('<p>').addClass('card-text').text('Temperature: ' + addZeroes(String(data.list[i].main.temp)) + ' °F');
           let humidFore = $('<p>').addClass('card-text').text('Humidity: ' + data.list[i].main.humidity + '%');
-          let tempFore = $('<p>').addClass('card-text').text('Temperature: ' + data.list[i].main.temp + ' °F');
+          let windFore = $('<p>').addClass('card-text').text('Wind Speed: ' + addZeroes(String(data.list[i].wind.speed)) + ' MPH');
           // append the forecast cards to colFore
-          colFore.append(cardFore.append(cardBodyFore.append(titleFore, imgFore, tempFore, humidFore)));
+          colFore.append(cardFore.append(cardBodyFore.append(titleFore, imgFore, tempFore, humidFore, windFore)));
           $('#forecast .row').append(colFore); // append colFore to the forecast id in a row format
 
         }
@@ -143,6 +151,8 @@ function getStorage() {
 // JQUERY function that checks to make sure the DOM document is ready before running the code inside it
 $(document).ready(function () {
   
+  $('#search-button').text("Search"); // give search button some text
+
   // search button click handler
   $('#search-button').on('click', function () {
     var searchInput = $('#search-value').val(); // retrieve the users search input from the input field

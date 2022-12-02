@@ -91,7 +91,7 @@ function getForecast(searchInput) {
       $('#forecast').html('<h4 class=\"mt-3\">5-Day Forecast:</h4><div class=\"row\">');
 
       // for loop to create a card for each day in the forecast
-      for (var i = 0; i < data.list.length; i++) {
+      for (let i = 0; i < data.list.length; i++) {
 
         // if statement that's main purpose is to simply select which hour we will pull our "daily" data from
         // it checks for if the index of dt.txt at 15:00 (24 hour time) is a valid array index
@@ -123,7 +123,7 @@ function getForecast(searchInput) {
 // function to create the list of previously searched cities
 function addToList(text) {
 
-  var listItem = $('<li>').addClass('list-group-item').text(text); // append the passed in text to a newly created list item
+  let listItem = $('<li>').addClass('list-group-item').text(text); // append the passed in text to a newly created list item
   $('.history').append(listItem); // append the list item to the history class
 }
 
@@ -142,7 +142,7 @@ function getStorage() {
   }
 
   // repopulate the searches list upon opening the site again
-  for (var i = 0; i < storage.length; i++) {
+  for (let i = 0; i < storage.length; i++) {
     addToList(storage[i]);
   }
 
@@ -155,7 +155,7 @@ $(document).ready(function () {
 
   // search button click handler
   $('#search-button').on('click', function () {
-    var searchInput = $('#search-value').val(); // retrieve the users search input from the input field
+    let searchInput = $('#search-value').val(); // retrieve the users search input from the input field
     // render the searches results
     getToday(searchInput);
     getForecast(searchInput);
